@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 
 import ExpandSvg from "@/assets/svg/expand.svg";
 import EditSvg from "@/assets/svg/edit.svg";
+import Main from "@/components/Main";
 
 export default function Home() {
   return (
@@ -39,9 +40,12 @@ export default function Home() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span className="flex">
-                          <button className="h-10 rounded-lg px-2 text-token-text-secondary focus-visible:outline-0 hover:bg-token-sidebar-surface-secondary focus-visible:bg-token-sidebar-surface-secondary">
-                            <ExpandSvg className="x-ls-hea" />
-                          </button>
+                          <Button
+                            size={"icon"}
+                            variant={"ghost"}
+                            className="hover:bg-slate-200/50">
+                            <ExpandSvg className="text-slate-500" />
+                          </Button>
                         </span>
                       </TooltipTrigger>
                       <TooltipContent side="right">关闭边栏</TooltipContent>
@@ -49,8 +53,11 @@ export default function Home() {
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span className="flex">
-                          <Button size={"icon"} variant={"ghost"}>
-                            <EditSvg className="text-secondary-foreground" />
+                          <Button
+                            size={"icon"}
+                            variant={"ghost"}
+                            className="hover:bg-slate-200/50">
+                            <EditSvg className="text-slate-500" />
                           </Button>
                         </span>
                       </TooltipTrigger>
@@ -63,7 +70,9 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="relative flex h-full max-w-full flex-1 flex-col overflow-hidden"></div>
+      <div className="relative flex h-full max-w-full flex-1 flex-col overflow-hidden">
+        <Main />
+      </div>
     </div>
   );
 }
