@@ -53,7 +53,7 @@ export default function SideList() {
     <ScrollArea className="flex-col flex-1 transition-opacity duration-500 -mr-2 pr-2 overflow-y-auto">
       <div className="flex flex-col gap-2 pb-2 text-token-text-primary text-sm mt-5">
         <ol>
-          {Array.from({ length: 50 }).map((_, index) => (
+          {Array.from({ length: 20 }).map((_, index) => (
             <li
               key={index}
               className="relative"
