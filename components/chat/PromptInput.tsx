@@ -71,6 +71,10 @@ export default function InputBox() {
   });
   const { doChat, messageList } = useChatRequest();
 
+  React.useEffect(() => {
+    console.log("messageList");
+  }, []);
+
   return (
     <div className=" w-full">
       <div className="relative flex h-full max-w-full flex-1 flex-col">

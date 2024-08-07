@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import ExpandSvg from "@/assets/svg/expand.svg";
 import EditSvg from "@/assets/svg/edit.svg";
 import SideList from "./List";
+import { ModeToggle } from "./ModeToggle";
 
 export default function SideHeader() {
   return (
@@ -61,6 +62,9 @@ export default function SideHeader() {
             </Tooltip>
           </div>
           <SideList />
+          <div className=" hover:bg-slate-200">
+            <ModeToggle />
+          </div>
         </nav>
       </div>
     </TooltipProvider>
