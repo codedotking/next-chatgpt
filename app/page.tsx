@@ -7,7 +7,7 @@ export default function Home() {
       <div className="flex-shrink-0 overflow-x-hidden bg-primary-foreground w-[260px]">
         <div className="h-full w-[260px]">
           <div className="flex h-full min-h-0 flex-col">
-            <SideHeader/>
+            <SideHeader />
           </div>
         </div>
       </div>
