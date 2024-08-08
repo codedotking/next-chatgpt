@@ -5,6 +5,7 @@ import UpArrowSvg from "@/assets/svg/up-arrow.svg";
 import { Textarea } from "../ui/textarea";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useImmer } from "use-immer";
+import { Button } from "../ui/button";
 
 export type Message = {
   content: string;
@@ -24,11 +25,20 @@ interface ChatProps {
 
 const useChatRequest = () => {
   const [messageList, setMessageList] = useImmer<Message[]>([message]);
-  const messages: { content: string; role: string }[] = [];
+  const messages: { content: string; role: string }[] = [message,{
+    content: `你好，请问有什么帮助么？`,
+    role: "assistant",
+    answering: false,
+  }];
+  
   const params = {
     messages,
     stream: true,
   };
+
+  React.useEffect(() => {
+    console.log("messageList", "chat");
+  }, []);
 
   const doChat = async () => {
     await fetchEventSource("/api/chat/completions", {
@@ -44,22 +54,29 @@ const useChatRequest = () => {
           is_end: boolean;
           id: number;
         };
-        setMessageList((draft) => {
-          const message = draft[draft.length - 1].content;
-          draft[draft.length - 1].content = message + chunkJson.result;
-        });
+        // setMessageList((draft) => {
+        //   const message = draft[draft.length - 1].content;
+        //   draft[draft.length - 1].content = message + chunkJson.result;
+        // });
       },
       onclose: () => {
-        setMessageList((draft) => {
-          draft[draft.length - 1].answering = false;
-        });
+        // setMessageList((draft) => {
+        //   draft[draft.length - 1].answering = false;
+        // });
       },
-      onerror: (e) => {},
+      onerror: (e) => {
+        console.error(e);
+      },
     });
+  };
+
+  const t = () => {
+    console.log("t");
   };
 
   return {
     doChat,
+    t,
     messageList,
   };
 };
@@ -69,11 +86,15 @@ export default function InputBox() {
     email: false,
     password: false,
   });
-  const { doChat, messageList } = useChatRequest();
+  const { doChat, t, messageList } = useChatRequest();
+  const handleCLick = () => {
+    doChat();
+    console.log(handleCLick);
+  };
 
   React.useEffect(() => {
-    console.log("messageList");
-  }, []);
+    console.log(doChat);
+  }, [doChat]);
 
   return (
     <div className=" w-full">
@@ -92,13 +113,17 @@ export default function InputBox() {
                   className="m-0 resize-none border-0 bg-transparent px-0 text-token-text-primary focus:ring-0 focus-visible:ring-0 max-h-52"
                   required></textarea>
               </div>
-              <Form.Submit
-                onClick={() => doChat()}
+              <Button
+                size={"icon"}
+                variant={"ghost"}
+                onClick={() => {
+                  handleCLick();
+                }}
                 className="mb-1 me-1 flex h-8 w-8 items-center justify-center rounded-full bg-black text-white transition-colors hover:opacity-70 focus-visible:outline-none focus-visible:outline-black disabled:bg-[#D7D7D7] disabled:text-[#f4f4f4] disabled:hover:opacity-100 dark:bg-white dark:text-black dark:focus-visible:outline-white 
         disabled::text-secondary-foreground 
       dark:disabled:text-secondary-foreground">
                 <UpArrowSvg />
-              </Form.Submit>
+              </Button>
             </div>
           </div>
         </div>
